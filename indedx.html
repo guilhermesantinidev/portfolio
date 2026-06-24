@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guilherme Santini — Álbum de Projetos</title>
+<meta name="description" content="Portfolio de Guilherme Santini, desenvolvedor web &amp; mobile. PWA, Firebase, Angular e JavaScript.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f1e6cb;
+    --paper-soft:#e9dab3;
+    --ink:#20283d;
+    --stamp-red:#c2452f;
+    --teal:#2f6f5e;
+    --marigold:#e3a23e;
+    --plum:#5c4b7c;
+    --radius:14px;
+    --shadow-sm: 0 2px 6px rgba(32,40,61,.18);
+    --shadow-lg: 0 18px 30px rgba(32,40,61,.28);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  /* ---------- visually-hidden / focus ---------- */
+  .skip-link{position:absolute;left:-999px;}
+  :focus-visible{outline:3px solid var(--stamp-red); outline-offset:3px; border-radius:4px;}
+
+  /* ---------- texture: paper grain ---------- */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      radial-gradient(rgba(32,40,61,0.035) 1px, transparent 1px);
+    background-size:3px 3px;
+    mix-blend-mode:multiply;
+  }
+
+  /* ---------- header / hero ---------- */
+  header.hero{
+    position:relative;
+    padding:clamp(40px,8vw,90px) 24px 70px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .stamp-mark{
+    width:84px;height:84px;margin:0 auto 22px;
+    border:3px dashed var(--ink);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:1.6rem;
+    transform:rotate(-8deg);
+    background:var(--paper-soft);
+    box-shadow:var(--shadow-sm);
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    color:var(--stamp-red);
+    margin:0 0 10px;
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2.4rem,7vw,4.2rem);
+    line-height:1;
+    margin:0 0 14px;
+    letter-spacing:-.01em;
+  }
+  h1 span{
+    display:inline-block;
+    background:var(--ink);color:var(--paper);
+    padding:0 .18em;
+    transform:rotate(-1deg);
+  }
+  .tagline{
+    font-size:clamp(1rem,2.4vw,1.25rem);
+    max-width:540px;
+    margin:0 auto 26px;
+    color:#3a3022;
+  }
+  .tape-row{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:30px;
+  }
+  .tape{
+    font-family:'Space Mono',monospace;
+    font-size:.78rem;
+    padding:7px 14px;
+    background:rgba(255,255,255,.55);
+    border:1px solid rgba(32,40,61,.25);
+    box-shadow:var(--shadow-sm);
+  }
+  .tape:nth-child(1){transform:rotate(-2deg);}
+  .tape:nth-child(2){transform:rotate(1.5deg);}
+  .tape:nth-child(3){transform:rotate(-1deg);}
+  .tape:nth-child(4){transform:rotate(2deg);}
+
+  .hero-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:.95rem;
+    padding:12px 24px;
+    border-radius:999px;
+    text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary{background:var(--ink);color:var(--paper);box-shadow:var(--shadow-sm);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+  .btn-ghost{border:2px solid var(--ink);color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper);}
+
+  /* torn paper divider */
+  .zigzag{
+    height:22px;
+    background-image:
+      linear-gradient(-45deg, var(--paper) 11px, transparent 0),
+      linear-gradient(45deg, var(--paper) 11px, transparent 0);
+    background-size:22px 22px;
+    background-position:left bottom;
+    background-repeat:repeat-x;
+    background-color:var(--paper-soft);
+  }
+
+  /* ---------- album section ---------- */
+  main{background:var(--paper-soft); padding-bottom:10px;}
+  .album{max-width:1080px;margin:0 auto;padding:50px 24px 30px;}
+  .album-head{
+    display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+    gap:14px;margin-bottom:34px;
+    border-bottom:3px dashed rgba(32,40,61,.35);
+    padding-bottom:18px;
+  }
+  .album-head h2{
+    font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);
+    margin:0;
+  }
+  .counter{
+    font-family:'Caveat',cursive;font-weight:700;font-size:1.4rem;
+    color:var(--stamp-red);
+  }
+
+  .sticker-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:30px;
+  }
+
+  .sticker{
+    position:relative;
+    background:var(--paper);
+    border-radius:var(--radius);
+    padding:22px 20px 20px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .25s ease, box-shadow .25s ease;
+    opacity:0; transform:translateY(16px);
+    animation:reveal .5s ease forwards;
+    animation-play-state:paused;
+  }
+  .sticker.is-visible{animation-play-state:running;}
+  @keyframes reveal{to{opacity:1;transform:translateY(0);}}
+
+  .sticker-grid > .sticker:nth-child(1){transform:rotate(-1.6deg);}
+  .sticker-grid > .sticker:nth-child(2){transform:rotate(1.2deg);}
+  .sticker-grid > .sticker:nth-child(3){transform:rotate(-1deg);}
+  .sticker-grid > .sticker:nth-child(4){transform:rotate(1.8deg);}
+  .sticker-grid > .sticker:nth-child(5){transform:rotate(-1.4deg);}
+  .sticker-grid > .sticker:nth-child(6){transform:rotate(1deg);}
+  .sticker-grid > .sticker:nth-child(7){transform:rotate(-1.8deg);}
+
+  .sticker:hover, .sticker:focus-within{
+    transform:rotate(0deg) translateY(-6px) !important;
+    box-shadow:var(--shadow-lg);
+    z-index:2;
+  }
+
+  /* perforation strip along top of each sticker */
+  .sticker::before{
+    content:"";
+    position:absolute;top:0;left:14px;right:14px;height:8px;
+    background-image:radial-gradient(circle, var(--paper-soft) 2.6px, transparent 3px);
+    background-size:11px 11px;
+    background-repeat:repeat-x;
+  }
+
+  .sticker-cat{
+    display:inline-block;
+    font-family:'Space Mono',monospace;
+    font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+    color:#fff;
+    padding:4px 9px;
+    border-radius:5px;
+    margin-bottom:12px;
+  }
+  .cat-pwa{background:var(--teal);}
+  .cat-kids{background:var(--marigold); color:var(--ink);}
+  .cat-app{background:var(--stamp-red);}
+  .cat-live{background:var(--ink);}
+  .cat-cliente{background:var(--plum);}
+
+  .sticker h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.18rem;margin:0 0 8px;
+  }
+  .sticker p{
+    font-size:.92rem;line-height:1.5;color:#3a3022;margin:0 0 16px;
+  }
+  .sticker-foot{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    flex-wrap:wrap;
+  }
+  .sticker-links{
+    display:flex;flex-direction:column;gap:4px;
+  }
+  .open-link{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.88rem;
+    text-decoration:none;color:var(--ink);
+    border-bottom:2px solid var(--stamp-red);
+    padding-bottom:1px;
+    width:fit-content;
+  }
+  .open-link:hover{color:var(--stamp-red);}
+
+  .case-link{
+    font-family:'Space Mono',monospace;font-weight:500;font-size:.78rem;
+    text-decoration:none;color:#5a5040;
+    border-bottom:1px dashed rgba(32,40,61,.35);
+    padding-bottom:1px;
+    width:fit-content;
+  }
+  .case-link:hover{color:var(--teal);border-color:var(--teal);}
+
+  .collect-btn{
+    background:none;border:2px dashed rgba(32,40,61,.4);
+    border-radius:999px;width:34px;height:34px;
+    font-size:1rem;cursor:pointer;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .15s ease, border-color .15s ease, transform .15s ease;
+    flex-shrink:0;
+  }
+  .collect-btn[aria-pressed="true"]{
+    background:var(--teal); border-color:var(--teal); color:#fff;
+    transform:scale(1.06);
+  }
+
+  .stamp-overlay{
+    position:absolute; top:10px; right:10px;
+    font-family:'Caveat',cursive; font-weight:700; font-size:1rem;
+    color:var(--teal);
+    border:2px dashed var(--teal);
+    padding:2px 10px;
+    border-radius:8px;
+    transform:rotate(-9deg);
+    background:rgba(255,255,255,.65);
+    opacity:0; pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .sticker.is-collected .stamp-overlay{opacity:1;}
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--ink); color:var(--paper);
+    text-align:center;
+    padding:40px 24px;
+    font-family:'Space Mono',monospace;
+    font-size:.82rem;
+  }
+  footer a{text-decoration:none;border-bottom:1px solid rgba(241,230,203,.5);}
+  footer a:hover{border-color:var(--paper);}
+  footer p{margin:6px 0;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .sticker{animation:none; opacity:1; transform:none !important;}
+    .sticker:hover{transform:none !important;}
+    *{transition-duration:.01ms !important;}
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="hero">
+  <div class="stamp-mark" aria-hidden="true">GS</div>
+  <p class="eyebrow">Desenvolvedor Web &amp; Mobile</p>
+  <h1>Guilherme <span>Santini</span></h1>
+  <p class="tagline">Transformo ideias em produtos digitais — de devocionais infantis a apps de Copa do Mundo.</p>
+
+  <div class="tape-row" aria-label="Principais tecnologias">
+    <span class="tape">PWA</span>
+    <span class="tape">Firebase</span>
+    <span class="tape">Angular</span>
+    <span class="tape">JavaScript</span>
+  </div>
+
+  <div class="hero-links">
+    <a class="btn btn-primary" href="#projetos">Ver álbum de projetos</a>
+    <a class="btn btn-ghost" href="https://github.com/guilhermesantinidev" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</header>
+
+<div class="zigzag" aria-hidden="true"></div>
+
+<main>
+  <section class="album" id="projetos">
+    <div class="album-head">
+      <h2>Álbum de projetos</h2>
+      <p class="counter"><span id="collected-count">0</span>/7 figurinhas coletadas</p>
+    </div>
+
+    <div class="sticker-grid">
+
+      <article class="sticker" data-id="biblical-verse">
+        <span class="stamp-overlay">vista ✓</span>
+        <span class="sticker-cat cat-pwa">PWA</span>
+        <h3>My Biblical Verse</h3>
+        <p>App devocional diário com versículos bíblicos para começar o dia com calma.</p>
+        <div class="sticker-foot">
+          <div class="sticker-links">
+            <a class="open-link" href="https://my-biblical-verse.web.app/" target="_blank" rel="noopener">Abrir projeto →</a>
+            <a class="case-link" href="cases/biblical-verse.html">Ver case study</a>
+          </div>
+          <button class="collect-btn" type="button" aria-pressed="false" aria-label="Marcar My Biblical Verse como vista">★</button>
+        </div>
+      </article>
+
+      <article class="sticker" data-id="biblical-verse-kids">
+        <span class="stamp-overlay">vista ✓</span>
+        <span class="sticker-cat cat-kids">Kids</span>
+        <h3>My Biblical Verse Kids</h3>
+        <p>Versão infantil com jogos e histórias bíblicas para a criançada explorar a fé brincando.</p>
+        <div class="sticker-foot">
+          <div class="sticker-links">
+            <a class="open-link" href="https://my-biblical-verse-kids.web.app/" target="_blank" rel="noopener">Abrir projeto →</a>
+          </div>
+          <button class="collect-btn" type="button" aria-pressed="false" aria-label="Marcar My Biblical Verse Kids como vista">★</button>
+        </div>
+      </article>
+
+      <article class="sticker" data-id="buscafig">
+        <span class="stamp-overlay">vista ✓</span>
+        <span class="sticker-cat cat-app">App</span>
+        <h3>BuscaFig — Figurinhas Copa</h3>
+        <p>Organize sua coleção de figurinhas da Copa e nunca mais compre repetida.</p>
+        <div class="sticker-foot">
+          <div class="sticker-links">
+            <a class="open-link" href="https://buscafig-d5ad3.web.app/" target="_blank" rel="noopener">Abrir projeto →</a>
+          </div>
+          <button class="collect-btn" type="button" aria-pressed="false" aria-label="Marcar BuscaFig como vista">★</button>
+        </div>
+      </article>
+
+      <article class="sticker" data-id="bolao-copa">
+        <span class="stamp-overlay">vista ✓</span>
+        <span class="sticker-cat cat-app">App</span>
+        <h3>Bolão Copa 2026</h3>
+        <p>Monte e gerencie o bolão da Copa do Mundo 2026 com a galera do trabalho.</p>
+        <div class="sticker-foot">
+          <div class="sticker-links">
+            <a class="open-link" href="https://copa-2026-14565.web.app/#/jogos" target="_blank" rel="noopener">Abrir projeto →</a>
+          </div>
+          <button class="collect-btn" type="button" aria-pressed="false" aria-label="Marcar Bolão Copa 2026 como vista">★</button>
+        </div>
+      </article>
+
+      <article class="sticker" data-id="copa-resultados">
+        <span class="stamp-overlay">vista ✓</span>
+        <span class="sticker-cat cat-live">Live</span>
+        <h3>Copa 2026 — Resultados</h3>
+        <p>Placares e jogos da Copa acompanhados em tempo real, direto no navegador.</p>
+        <div class="sticker-foot">
+          <div class="sticker-links">
+            <a class="open-link" href="https://guilhermesantinidev.github.io/copa26/" target="_blank" rel="noopener">Abrir projeto →</a>
+          </div>
+          <button class="collect-btn" type="button" aria-pressed="false" aria-label="Marcar Copa 2026 Resultados como vista">★</button>
+        </div>
+      </article>
+
+      <article class="sticker" data-id="minha-lista">
+        <span class="stamp-overlay">vista ✓</span>
+        <span class="sticker-cat cat-pwa">PWA</span>
+        <h3>Minha Lista</h3>
+        <p>Lista de mercado simples, rápida e sem enrolação — só o essencial.</p>
+        <div class="sticker-foot">
+          <div class="sticker-links">
+            <a class="open-link" href="https://guilhermesantinidev.github.io/minhalista/" target="_blank" rel="noopener">Abrir projeto →</a>
+          </div>
+          <button class="collect-btn" type="button" aria-pressed="false" aria-label="Marcar Minha Lista como vista">★</button>
+        </div>
+      </article>
+
+      <article class="sticker" data-id="higilar">
+        <span class="stamp-overlay">vista ✓</span>
+        <span class="sticker-cat cat-cliente">Cliente</span>
+        <h3>Higilar Santa Maria</h3>
+        <p>Página de links objetiva e limpa, desenvolvida para um cliente real.</p>
+        <div class="sticker-foot">
+          <div class="sticker-links">
+            <a class="open-link" href="https://www.higilarsantamaria.com.br/links/" target="_blank" rel="noopener">Abrir projeto →</a>
+          </div>
+          <button class="collect-btn" type="button" aria-pressed="false" aria-label="Marcar Higilar Santa Maria como vista">★</button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>github.com/<a href="https://github.com/guilhermesantinidev" target="_blank" rel="noopener">guilhermesantinidev</a></p>
+  <p>Desenvolvido por Guilherme Santini · <span id="year"></span></p>
+</footer>
+
+<script>
+  // collect counter, persisted locally
+  const STORAGE_KEY = 'gs-portfolio-collected';
+  const collected = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+  const countEl = document.getElementById('collected-count');
+
+  function updateCount(){
+    countEl.textContent = collected.size;
+  }
+
+  document.querySelectorAll('.sticker').forEach(card => {
+    const id = card.dataset.id;
+    const btn = card.querySelector('.collect-btn');
+    if(collected.has(id)){
+      card.classList.add('is-collected');
+      btn.setAttribute('aria-pressed','true');
+    }
+    btn.addEventListener('click', () => {
+      const active = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', String(!active));
+      card.classList.toggle('is-collected', !active);
+      if(active){ collected.delete(id); } else { collected.add(id); }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...collected]));
+      updateCount();
+    });
+  });
+  updateCount();
+
+  // reveal on scroll
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if('IntersectionObserver' in window && !reduceMotion){
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.15});
+    document.querySelectorAll('.sticker').forEach(el => obs.observe(el));
+  } else {
+    document.querySelectorAll('.sticker').forEach(el => el.classList.add('is-visible'));
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
