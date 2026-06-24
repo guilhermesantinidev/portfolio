@@ -122,6 +122,8 @@
     0%,100%{opacity:1;}
     50%{opacity:.4;}
   }
+  a.badge{cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;}
+  a.badge:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);}
 
   .meta{
     display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
@@ -284,6 +286,8 @@
     animation:pulse 2s infinite;
     flex-shrink:0;
   }
+  a.store-item{cursor:pointer;transition:background .2s ease, transform .2s ease;}
+  a.store-item:hover{background:rgba(255,255,255,.25);transform:translateY(-2px);}
 
   /* ---------- roadmap ---------- */
   .roadmap{margin:32px 0;}
@@ -361,10 +365,10 @@
       </p>
 
       <div class="store-badges">
-        <span class="badge badge-live">
+        <a class="badge badge-live" href="https://www.amazon.com/gp/product/B0H5XD1KF6" target="_blank" rel="noopener">
           <span class="badge-dot"></span>
           🛒 Amazon Appstore — No ar
-        </span>
+        </a>
         <span class="badge badge-soon">🤖 Google Play — Em breve</span>
         <span class="badge badge-soon">🍎 iOS — Em breve</span>
       </div>
@@ -536,10 +540,10 @@
         <p>Inspiração Diária das Escrituras</p>
       </div>
       <div class="store-list">
-        <div class="store-item live">
+        <a class="store-item live" href="https://www.amazon.com/gp/product/B0H5XD1KF6" target="_blank" rel="noopener">
           <span class="live-dot"></span>
           🛒 Amazon Appstore — No ar
-        </div>
+        </a>
         <div class="store-item live">
           <span class="live-dot"></span>
           🌐 Web PWA — No ar
